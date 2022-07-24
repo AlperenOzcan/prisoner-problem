@@ -12,6 +12,10 @@ public class Box {
         return insiderNumber;
     }
 
+    public void setInsiderNumber(int insiderNumber) {
+        this.insiderNumber = insiderNumber;
+    }
+
     public int getOutsiderNumber() {
         return outsiderNumber;
     }

@@ -8,7 +8,7 @@ public class Utils {
     public ArrayList<Prisoner> createPrisoners() {
         ArrayList<Prisoner> prisoners = new ArrayList<>();
 
-        for(int i = 0; i < NUMBER_OF_PRISONERS; i++) {
+        for (int i = 0; i < NUMBER_OF_PRISONERS; i++) {
             Prisoner p = new Prisoner(i);
             prisoners.add(p);
         }
@@ -33,11 +33,11 @@ public class Utils {
             numberOfTry++;
             Box openedBox = boxes.get(boxNumberToBeOpenedNext);
             int boxInsiderNumber = openedBox.getInsiderNumber();
-            if(prisonerNumber == boxInsiderNumber) {
+            if (prisonerNumber == boxInsiderNumber) {
                 return true;
             }
             boxNumberToBeOpenedNext = boxInsiderNumber;
-        }while(numberOfTry < NUMBER_OF_PRISONERS/2);
+        } while (numberOfTry < NUMBER_OF_PRISONERS / 2);
         return false;
     }
 
