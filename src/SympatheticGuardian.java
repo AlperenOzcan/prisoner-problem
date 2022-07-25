@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Optional;
 
 public class SympatheticGuardian implements Guardian {
 
-    private ArrayList<Box> boxes;
+    private ArrayList<Box>      boxes;
+    private HashSet<Integer>    controlledBoxes = new HashSet<>();
 
     public SympatheticGuardian(ArrayList<Box> boxes) {
         this.boxes = boxes;
@@ -27,10 +29,13 @@ public class SympatheticGuardian implements Guardian {
         int loopLengthLimit = numberOfPrisoners / 2;
         int loopLength;
         for (Box box : boxes) {
-            ArrayList<Box> loop = findLoop(box.getOutsiderNumber());
-            loopLength = loop.size();
-            if (loopLength >= loopLengthLimit) {
-                return Optional.of(loop);
+            int startingBoxNumber = box.getOutsiderNumber();
+            if(!controlledBoxes.contains(startingBoxNumber)) {
+                ArrayList<Box> loop = findLoop(startingBoxNumber);
+                loopLength = loop.size();
+                if (loopLength >= loopLengthLimit) {
+                    return Optional.of(loop);
+                }
             }
         }
         return Optional.empty();
@@ -40,6 +45,7 @@ public class SympatheticGuardian implements Guardian {
         ArrayList<Box> openedBoxList = new ArrayList<>();
         int boxNumberToBeOpened = startingBoxNumber;
         while (true) {
+            controlledBoxes.add(boxNumberToBeOpened);
             Box openedBox = boxes.get(boxNumberToBeOpened);
             int nextBoxNumber = openedBox.getInsiderNumber();
             if (startingBoxNumber == nextBoxNumber) {
